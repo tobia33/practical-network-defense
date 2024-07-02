@@ -1,19 +1,6 @@
 import socket
 import os
 
-test_names = [
-    'dns',
-    'internal_servers_network',
-    'ping_everything',
-    'http/s_WAN',
-    'proxy_server',
-    'everyone_in_acme',
-    'ssh_everyone_in_acme',
-    'http/s webserver',
-    'ping DMZ',
-    'traceroute DMZ'
-]
-
 hosts = [
     'webserver.acme-28.test',
     'proxyserver.acme-28.test',
@@ -31,12 +18,8 @@ hosts = [
 hosts_addresses = {}
 
 """
-    All tests functions return a list [bool, bool],
-    where the the first bool is True 
-    if the test is passed using ipv4,
-    while the second is True
-    if the test is passed using ipv6
-    (Except test_dns)
+    All tests functions return a boolean or a list [bool, bool],
+    The boolean is True if the test is passed
 """
 
 '''
@@ -65,13 +48,13 @@ def test_internal_servers_network():
     # ipv4
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.settimeout(10)
-    res = sock.connect_ex((hosts_addresses['graylog.acme-28.test'][0], 9200))
+    res = sock.connect_ex((hosts_addresses['graylog.acme-28.test'][0], 80))
     if res == 0:
         result[0] = True
     # ipv6
     sock = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
     sock.settimeout(10)
-    res = sock.connect_ex((hosts_addresses['graylog.acme-28.test'][1], 9200))
+    res = sock.connect_ex((hosts_addresses['graylog.acme-28.test'][1], 80))
     if res == 0:
         result[1] = True
     return result
@@ -239,5 +222,37 @@ def test_traceroute_DMZ():
     
     response = response.buffer.read().strip()
     if response < b'25':
+        result[1] = True
+    return result
+
+def test_syslog_logserver():
+    result = [False, False]
+    # ipv4
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    sock.settimeout(10)
+    res = sock.connect_ex((hosts_addresses['logserver.acme-28.test'][0], 514))
+    if res == 0:
+        result[0] = True
+    # ipv6
+    sock = socket.socket(socket.AF_INET6, socket.SOCK_DGRAM)
+    sock.settimeout(10)
+    res = sock.connect_ex((hosts_addresses['logserver.acme-28.test'][1], 514))
+    if res == 0:
+        result[1] = True
+    return result
+
+def test_log_collector_graylog():
+    result = [False, False]
+    # ipv4
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    sock.settimeout(10)
+    res = sock.connect_ex((hosts_addresses['graylog.acme-28.test'][0], 9200))
+    if res == 0:
+        result[0] = True
+    # ipv6
+    sock = socket.socket(socket.AF_INET6, socket.SOCK_DGRAM)
+    sock.settimeout(10)
+    res = sock.connect_ex((hosts_addresses['graylog.acme-28.test'][1], 9200))
+    if res == 0:
         result[1] = True
     return result
