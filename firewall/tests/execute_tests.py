@@ -5,5 +5,5 @@ def execute_tests(name, list_of_tests):
     for test in list_of_tests[0]:
         test()
     print(f'\n[+] The following tests must NOT be passed:')
-    for test in list_of_tests[0]:
+    for test in list_of_tests[1]:
         test()

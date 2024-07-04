@@ -39,8 +39,6 @@ the client ext 1 has to reach:
     - dns
     - ping everything
     - proxy server
-    - send syslog to logserver
-    - send log collector to graylog
 
 ### kali
 the kali host has to reach:
@@ -49,8 +47,6 @@ the kali host has to reach:
     - internal server network
     - ping everything
     - proxy server
-    - send syslog to logserver
-    - send log collector to graylog
 
 ### WAN hosts
 the hosts in WAN have to reach:

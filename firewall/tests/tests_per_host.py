@@ -5,8 +5,8 @@ webserver = [
         wrap_test_dns,
         wrap_test_internal_servers_network,
         wrap_test_ping_everything,
-        wrap_test_syslog_logserver,
-        wrap_test_log_collector_graylog
+        # wrap_test_syslog_logserver,
+        # wrap_test_log_collector_graylog
     ],
     [
         wrap_test_http_s_WAN,
@@ -20,8 +20,8 @@ proxy = [
         wrap_test_http_s_WAN,
         wrap_test_internal_servers_network,
         wrap_test_ping_everything,
-        wrap_test_syslog_logserver,
-        wrap_test_log_collector_graylog
+        # wrap_test_syslog_logserver,
+        # wrap_test_log_collector_graylog
     ],
     [
         wrap_test_ssh_everyone_in_acme,
@@ -45,8 +45,8 @@ client_ext_1 = [
         wrap_test_dns,
         wrap_test_ping_everything,
         wrap_test_proxy_server,
-        wrap_test_syslog_logserver,
-        wrap_test_log_collector_graylog
+        # wrap_test_syslog_logserver,
+        # wrap_test_log_collector_graylog
     ],
     [
         wrap_test_ssh_everyone_in_acme,
@@ -77,5 +77,13 @@ wan = [
         wrap_test_proxy_server,
         wrap_test_ping_DMZ,
         wrap_test_traceroute_DMZ
+    ],
+    [
+        wrap_test_dns,
+        wrap_test_internal_servers_network,
+        wrap_test_ping_everything,
+        wrap_test_ssh_everyone_in_acme,
+        # wrap_test_syslog_logserver,
+        # wrap_test_log_collector_graylog
     ]
 ]

@@ -156,16 +156,16 @@ def test_ssh_everyone_in_acme():
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.settimeout(10)
         res = sock.connect_ex((addresses[0], 22))
-        if res == 0:
+        if res != 0:
             ipv4_not_working.append(host)
-            result[0] = True
+            result[0] = False
         # ipv6
         sock = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
         sock.settimeout(10)
         res = sock.connect_ex((addresses[1], 22))
-        if res == 0:
+        if res != 0:
             ipv6_not_working.append(host)
-            result[1] = True
+            result[1] = False
     return result, ipv4_not_working, ipv6_not_working
 
 def test_http_s_webserver():
@@ -246,13 +246,13 @@ def test_log_collector_graylog():
     # ipv4
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.settimeout(10)
-    res = sock.connect_ex((hosts_addresses['graylog.acme-28.test'][0], 9200))
+    res = sock.connect_ex((hosts_addresses['graylog.acme-28.test'][0], 514))
     if res == 0:
         result[0] = True
     # ipv6
     sock = socket.socket(socket.AF_INET6, socket.SOCK_DGRAM)
     sock.settimeout(10)
-    res = sock.connect_ex((hosts_addresses['graylog.acme-28.test'][1], 9200))
+    res = sock.connect_ex((hosts_addresses['graylog.acme-28.test'][1], 514))
     if res == 0:
         result[1] = True
     return result

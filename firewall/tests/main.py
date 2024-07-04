@@ -1,6 +1,8 @@
 import sys
 from tests_per_host import *
 from execute_tests import execute_tests
+import tests
+import json
 
 if __name__=='__main__':
 
@@ -25,5 +27,7 @@ if __name__=='__main__':
     elif host == 'kali':
         execute_tests(host, kali)
     elif host == 'wan':
-        hosts_addresses['proxyserver.acme-28.test'] = ('100.100.6.3', '2001:470:b5b8:1c06:74da:b5ff:fed2:952a')
+        with open('addresses.json', 'r') as file:
+            addresses = json.load(file)
+        tests.hosts_addresses = addresses
         execute_tests(host, wan)
