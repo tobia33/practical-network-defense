@@ -87,3 +87,21 @@ wan = [
         # wrap_test_log_collector_graylog
     ]
 ]
+
+alice = [
+    [
+        wrap_test_ssh_everyone_in_acme
+    ],
+    [
+    ]
+]
+
+bob_charles = [
+    [
+        wrap_test_ssh_everyone_in_acme_but_internal,
+    ],
+    [
+        wrap_test_internal_servers_network,
+        wrap_test_ssh_everyone_in_acme,
+    ]
+]

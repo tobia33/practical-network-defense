@@ -150,8 +150,37 @@ def test_ssh_everyone_in_acme():
     # test hosts in acme
     ipv4_not_working = []
     ipv6_not_working = []
+    if not hosts_addresses:
+        return [False, False], [], []
 
     for host, addresses in hosts_addresses.items():
+        # ipv4
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.settimeout(15)
+        res = sock.connect_ex((addresses[0], 22))
+        if res != 0:
+            ipv4_not_working.append(host)
+            result[0] = False
+        # ipv6
+        sock = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
+        sock.settimeout(15)
+        res = sock.connect_ex((addresses[1], 22))
+        if res != 0:
+            ipv6_not_working.append(host)
+            result[1] = False
+    return result, ipv4_not_working, ipv6_not_working
+
+
+def test_ssh_everyone_but_internal_in_acme():
+    result = [True, True]
+    ipv4_not_working = []
+    ipv6_not_working = []
+    if not hosts_addresses:
+        return [False, False], [], []
+    internal_servers_network_hosts = ['dnsserver.acme-28.test', 'logserver.acme-28.test', 'greenbone.acme-28.test', 'graylog.acme-28.test']
+    hosts_addresses_but_internal = {key:value for (key, value) in hosts_addresses.copy().items() if key not in internal_servers_network_hosts}
+    
+    for host, addresses in hosts_addresses_but_internal.items():
         # ipv4
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.settimeout(10)
@@ -167,6 +196,8 @@ def test_ssh_everyone_in_acme():
             ipv6_not_working.append(host)
             result[1] = False
     return result, ipv4_not_working, ipv6_not_working
+
+
 
 def test_http_s_webserver():
     resultv4 = [False, False]

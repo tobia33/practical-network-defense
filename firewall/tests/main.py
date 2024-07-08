@@ -31,3 +31,18 @@ if __name__=='__main__':
             addresses = json.load(file)
         tests.hosts_addresses = addresses
         execute_tests(host, wan)
+    elif host == 'alice':
+        with open('addresses.json', 'r') as file:
+            addresses = json.load(file)
+        tests.hosts_addresses = addresses
+        execute_tests(host, alice)
+    elif host == 'bob':
+        with open('addresses.json', 'r') as file:
+            addresses = json.load(file)
+        tests.hosts_addresses = addresses
+        execute_tests(host, bob_charles)
+    elif host == 'charles':
+        with open('addresses.json', 'r') as file:
+            addresses = json.load(file)
+        tests.hosts_addresses = addresses
+        execute_tests(host, bob_charles)

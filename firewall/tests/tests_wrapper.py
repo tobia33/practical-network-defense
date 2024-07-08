@@ -40,18 +40,22 @@ def wrap_test_http_s_WAN():
         print('[+] http services on WAN are reachable through ipv4')
     else:
         print('[-] http services on WAN are not reachable through ipv4')
+        print('[-] make sure the service is running!')
     if httpv4_passed[1]:
         print('[+] https services on WAN are reachable through ipv4')
     else:
         print('[-] https services on WAN are not reachable through ipv4')
+        print('[-] make sure the service is running!')
     if httpv6_passed[0]:
         print('[+] http services on WAN are reachable through ipv6')
     else:
         print('[-] http services on WAN are not reachable through ipv6')
+        print('[-] make sure the service is running!')
     if httpv6_passed[1]:
         print('[+] https services on WAN are reachable through ipv6')
     else:
         print('[-] https services on WAN are not reachable through ipv6')
+        print('[-] make sure the service is running!')
 
 def wrap_test_proxy_server():
     print('\n[+] testing if proxy is reachable')
@@ -76,6 +80,20 @@ def wrap_test_ssh_everyone_in_acme():
         print('[+] all the hosts can be accessed through ssh with ipv6')
     else:
         print('[-] the following hosts can\'t be accessed through ssh with ipv6', ipv6_not_working)
+
+def wrap_test_ssh_everyone_in_acme_but_internal():
+    print('\n[+] testing if everyone in acme but internal servers network is reachable through ssh')
+    ssh_passed, ipv4_not_working, ipv6_not_working = test_ssh_everyone_but_internal_in_acme()
+    if ssh_passed[0]:
+        print('[+] all the hosts but internal can be accessed through ssh with ipv4')
+    else:
+        print('[-] the following hosts can\'t be accessed through ssh with ipv4', ipv4_not_working)
+    if ssh_passed[1]:
+        print('[+] all the hosts but internal can be accessed through ssh with ipv6')
+    else:
+        print('[-] the following hosts can\'t be accessed through ssh with ipv6', ipv6_not_working)
+
+
 
 def wrap_test_http_s_webserver():
     print('\n[+] testing if webserver can be reached through http/s')

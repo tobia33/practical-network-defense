@@ -54,3 +54,14 @@ the hosts in WAN have to reach:
     - proxy server
     - ping DMZ
     - traceroute DMZ
+
+### alice vpn hosts
+the hosts authenticated as alice with the vpn have to reach:
+    - every network
+        ssh everyone in acme
+
+### bob and charles vpn hosts
+the hosts authenticated as bob and charles with the vpn have to reach:
+    - everyone but internal servers network
+        ssh everyone in acme but internal servers network
+    - dns

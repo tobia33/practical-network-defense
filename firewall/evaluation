@@ -1,0 +1,14 @@
+The security policy seems robust, but it has flaws.
+Hosts from the internet can only reach the web server and the proxy server, this is good.
+If these are compromised by an attacker, the attacker can:
+	- send logs to the logserver 
+	- send logs to the graylog server
+	- reach the internal dns
+		these are not really avoidable, and can lead to the compromise of these other hosts if there are vulnerabilities, but should be secure if updated regularly
+	- make http/s requests to external web services (proxy only)
+		can't lead to the compromise of other acme hosts but can be used for other types of attack
+	- reach the graylog web interface
+	- reach the greenbone web interface
+		these are the ones we don't 
+
+
